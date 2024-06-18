@@ -4,16 +4,26 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.stereotype.Component;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotBlank(message="Name attr can't be blank")
     private String name;
     private String addr;
     private String code;
-
+    // We are implementing now lombok so commenting out boiler plate code
+/*
     public Long getId() {
         return id;
     }
@@ -55,4 +65,6 @@ public class Department {
     public Department() {
         System.out.println("Defaut Dept constructor:"+this.hashCode());
     }
+
+ */
 }

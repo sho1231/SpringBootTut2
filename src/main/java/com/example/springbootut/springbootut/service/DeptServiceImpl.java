@@ -1,20 +1,31 @@
 package com.example.springbootut.springbootut.service;
 
 import com.example.springbootut.springbootut.entity.Department;
+import com.example.springbootut.springbootut.error.DeptNotFoundException;
 import com.example.springbootut.springbootut.repo.DeptRepo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeptServiceImpl implements DeptService{
+    private final Logger LOGGER = LoggerFactory.getLogger(DeptServiceImpl.class);
     @Autowired
     private DeptRepo deptRepo;
     @Override
     public Department save(Department department) {
 
-        return deptRepo.save(department);
+        try{
+            return deptRepo.save(department);
+        }
+        catch (Exception e) {
+            LOGGER.debug(e.toString());
+        }
+        return null;
     }
     @Override
     public List<Department> getAll() {
@@ -22,8 +33,11 @@ public class DeptServiceImpl implements DeptService{
     }
 
     @Override
-    public Department findById(Long id) {
-        return deptRepo.findById(id).get();
+    public Department findById(Long id) throws DeptNotFoundException {
+        Optional<Department> department = deptRepo.findById(id);
+        if (department.isEmpty())
+            throw new DeptNotFoundException("Department not found");
+        return department.get();
     }
 
     @Override
@@ -40,7 +54,7 @@ public class DeptServiceImpl implements DeptService{
 
     @Override
     public Department updateById(Long id, Department updatedDepartment) {
-        try {
+//        try {
             Department department = deptRepo.findById(id).get();
             if (department == null) {
                 return null;
@@ -55,21 +69,17 @@ public class DeptServiceImpl implements DeptService{
                 department.setCode(updatedDepartment.getCode());
             }
             return deptRepo.save(department);
-        }
-        catch (Exception e) {
-            System.out.println("Error message "+e.getMessage());
-        }
-        return null;
+//        }
     }
 
     @Override
     public Department getByName(String name) {
-        try{
+//        try{
             return deptRepo.findByName(name);
-        }
-        catch (Exception e) {
-            System.out.println("Error message "+e.getMessage());
-        }
-        return null;
+//        }
+//        catch (Exception e) {
+//            System.out.println("Error message "+e.getMessage());
+//        }
+//        return null;
     }
 }

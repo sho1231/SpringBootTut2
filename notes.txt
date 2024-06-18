@@ -1,0 +1,46 @@
+@SpringBootConfiguration(inside @SpringBootApplication)---> Tells which is
+the main SpringBootApplication file
+
+run SpringBootApplication through terminal : mvn spring-boot:run
+
+@Entity --> makes the class interactable with db.
+@Id-->jakarta--->makes the attribute primary key
+@GenerateValue(strategy=GenerationType.AUTO)---> helps to define what values
+will be generated
+Interface can extend multiple interface
+@controller methods can be private and still work due to implementation of
+reflection in @RequestMapping
+@RequestBody-->Automatically maps request body attribute to required object type
+
+
+In order to create fetch methods in repo interface, we need to make the method name
+start with findBy*attrName*.
+
+For eg: name--->findByName
+        deptName --> findByDeptName
+
+If the query can't be framed by method naming we can use jpql by using @Query annotation above
+the method
+
+if that also doesn't work then using native query same as above but with implementation like this
+@Query(value="*query here*",nativeQuery=true)
+
+
+@NotNull: Ensures a field is not null. @NotBlank: Enforces non-nullity and requires at least one non-whitespace characte
+@Size and @Length are both annotations that can be used to validate the size of a field, but they are different in a few ways:
+@Size: This is a Java-standard annotation.
+@Length: This is specific to Hibernate
+
+Now to enable these validations in request body we need to add @Valid annotation like this
+@Valid @RequestBody Department departmen
+
+To add sl4j logger in a class
+private final Logger LOGGER = LoggerFactory.getLogger(DeptController.class);
+
+Lombok basically creates boilerplate code like getter setter and such other methods at compile time.
+What methods does @data annotation creates at runtime check it at the pic.
+
+@Builder implements builder pattern
+
+@ControllerAdvice ---> when exception occurs, handles exception and send the exception back as 
+response object.
