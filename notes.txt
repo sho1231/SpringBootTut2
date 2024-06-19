@@ -44,3 +44,23 @@ What methods does @data annotation creates at runtime check it at the pic.
 
 @ControllerAdvice ---> when exception occurs, handles exception and send the exception back as 
 response object.
+
+Configuring mysql -->
+maven config--><dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+application.properties:
+                        spring.jpa.hibernate.ddl-auto=update  ---> database should already be present
+                        spring.datasource.url=jdbc:mysql://localhost:3306/dcbapp (db name)
+                        spring.datasource.username=root
+                        spring.datasource.password=admin        
+                        spring.datasource.driver-class-name =com.mysql.jdbc.Driver
+                        spring.jpa.show-sql: true
+
+
+
+
+Whatever db we are using we have to use that particular driver for it.
