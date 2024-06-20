@@ -38,6 +38,18 @@ To add sl4j logger in a class
 private final Logger LOGGER = LoggerFactory.getLogger(DeptController.class);
 
 Lombok basically creates boilerplate code like getter setter and such other methods at compile time.
+To add it we need to add the dependency in pom.xml as well as we need to inform spring we are using this
+so for that 
+<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+ This is basically to run lombok in production level.
+ If it's only for dev level, we can use plugins for lombok for respective IDE.                              
 What methods does @data annotation creates at runtime check it at the pic.
 
 @Builder implements builder pattern
